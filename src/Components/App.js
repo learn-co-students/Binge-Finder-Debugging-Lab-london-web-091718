@@ -13,7 +13,7 @@ class App extends Component {
     searchTerm: "",
     selectedShow: "",
     episodes: [],
-    filterByRating: "",
+    filterByRating: 0,
   }
 
   componentDidMount = () => {
@@ -30,7 +30,7 @@ class App extends Component {
   }
 
   handleFilter = (e) => {
-    e.target.value === "No Filter" ? this.setState({ filterRating: 0 }) : this.setState({ filterRating: e.target.value})
+    e.target.value === "No Filter" ? this.setState({ filterByRating: 0 }) : this.setState({ filterByRating: e.target.value})
   }
 
   selectShow = show => {
@@ -42,11 +42,14 @@ class App extends Component {
   }
 
   displayShows = () => {
-    if (this.state.filterByRating){
+    if (this.state.filterByRating > 0){
       return this.state.shows.filter((s)=> {
+        console.log('filtering')
         return s.rating.average >= this.state.filterByRating
+        
       })
     } else {
+      console.log('not filtering')
       return this.state.shows
     }
   }
