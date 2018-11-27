@@ -13,4 +13,3 @@ export default class MoreButton extends React.Component {
     }
 
 }
-
