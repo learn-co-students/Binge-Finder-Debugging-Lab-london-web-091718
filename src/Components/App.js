@@ -4,7 +4,7 @@ import TVShowList from './TVShowList';
 import Nav from './Nav';
 import SelectedShowContainer from './SelectedShowContainer';
 import { Grid } from 'semantic-ui-react';
-
+import MoreButton from './MoreButton'
 
 
 class App extends Component {
@@ -14,6 +14,7 @@ class App extends Component {
     selectedShow: "",
     episodes: [],
     filterByRating: 0,
+    currentPage: 0
   }
 
   componentDidMount = () => {
@@ -22,6 +23,7 @@ class App extends Component {
   }
 
   componentDidUpdate = () => {
+    
     window.scrollTo(0, 0)
   }
 
@@ -53,6 +55,19 @@ class App extends Component {
     }
   }
 
+  handleMore = () =>{
+   
+    Adapter.getMoreShows(this.state.currentPage+1).then(fetchedShows =>
+      {
+      let loadedShowsBefore = JSON.stringify(this.state.shows)
+      let loadedShows = JSON.parse(loadedShowsBefore)
+      let newAllShows = loadedShows.concat(fetchedShows)
+      this.setState({ shows: newAllShows })
+      this.setState({ currentPage: this.state.currentPage+1 })
+      })
+  }
+
+
   render (){
     return (
       <div>
@@ -61,7 +76,8 @@ class App extends Component {
           <Grid.Column width={5}>
             {
               !!this.state.selectedShow ? 
-            <SelectedShowContainer
+            <SelectedShowContainer 
+                className="showpage"
                 selectedShow={this.state.selectedShow} 
                 episodes={this.state.episodes}
                 /> : 
@@ -70,9 +86,12 @@ class App extends Component {
           </Grid.Column>
           <Grid.Column width={11}>
             <TVShowList shows={this.displayShows()} selectShow={this.selectShow} searchTerm={this.state.searchTerm}/>
-          </Grid.Column>
+          </Grid.Column >
+          <MoreButton handleMore={this.handleMore}/>
         </Grid>
+                
       </div>
+
     );
   }
 }
