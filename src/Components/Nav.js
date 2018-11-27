@@ -17,7 +17,7 @@ const Nav = (props) => {
           <Filter handleFilter={event => props.handleFilter(event)}/>
         </Menu.Item>
         <Menu.Item position="right">
-          <Search handleSearch={event => props.handleSearch(event)} search={props.search}/>
+          <Search handleSearch={ event => props.handleSearch(event) } searchTerm={props.searchTerm}/>
         </Menu.Item>
       </Menu>
     </div>

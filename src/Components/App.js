@@ -25,7 +25,7 @@ class App extends Component {
     window.scrollTo(0, 0)
   }
 
-  handleSearch (e){
+  handleSearch = (e) => {
     this.setState({ searchTerm: e.target.value.toLowerCase() })
   }
 
@@ -46,7 +46,6 @@ class App extends Component {
       return this.state.shows.filter((s)=> {
         console.log('filtering')
         return s.rating.average >= this.state.filterByRating
-        
       })
     } else {
       console.log('not filtering')
