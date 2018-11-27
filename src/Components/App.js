@@ -17,7 +17,8 @@ class App extends Component {
   }
 
   componentDidMount = () => {
-    Adapter.getShows().then(shows => this.setState({shows}))
+    Adapter.getShows().then(shows =>
+      this.setState({ shows: shows}))
   }
 
   componentDidUpdate = () => {
@@ -29,14 +30,14 @@ class App extends Component {
   }
 
   handleFilter = (e) => {
-    e.target.value === "No Filter" ? this.setState({ filterRating:"" }) : this.setState({ filterRating: e.target.value})
+    e.target.value === "No Filter" ? this.setState({ filterRating: 0 }) : this.setState({ filterRating: e.target.value})
   }
 
-  selectShow = (show) => {
+  selectShow = show => {
     Adapter.getShowEpisodes(show.id)
     .then((episodes) => this.setState({
       selectedShow: show,
-      episodes
+      episodes: episodes
     }))
   }
 
@@ -53,10 +54,17 @@ class App extends Component {
   render (){
     return (
       <div>
-        <Nav handleFilter={this.handleFilter} handleSearch={this.handleSearch} searchTerm={this.state.searchTerm}/>
+        <Nav handleFilter={this.handleFilter}  handleSearch={this.handleSearch} searchTerm={this.state.searchTerm}/>
         <Grid celled>
           <Grid.Column width={5}>
-            {!!this.state.selectedShow ? <SelectedShowContainer selectedShow={this.state.selectedShow} allEpisodes={this.state.episodes}/> : <div/>}
+            {
+              !!this.state.selectedShow ? 
+            <SelectedShowContainer
+                selectedShow={this.state.selectedShow} 
+                episodes={this.state.episodes}
+                /> : 
+                <div />
+                }
           </Grid.Column>
           <Grid.Column width={11}>
             <TVShowList shows={this.displayShows()} selectShow={this.selectShow} searchTerm={this.state.searchTerm}/>
