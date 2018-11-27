@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import {Grid} from 'semantic-ui-react';
 import TVShow from './TVShow'
+import MoreButton from './MoreButton'
 
 class TVShowList extends Component {
 
@@ -21,7 +22,9 @@ class TVShowList extends Component {
       <div className="TVShowList">
         <Grid>
           {this.mapAllShows()}
+          <MoreButton handleMore={ this.props.handleMore } />
         </Grid>
+        
       </div>
     )
   }

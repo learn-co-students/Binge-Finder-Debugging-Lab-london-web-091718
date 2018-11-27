@@ -85,9 +85,14 @@ class App extends Component {
                 }
           </Grid.Column>
           <Grid.Column width={11}>
-            <TVShowList shows={this.displayShows()} selectShow={this.selectShow} searchTerm={this.state.searchTerm}/>
+            <TVShowList
+                shows={this.displayShows()}
+                selectShow={this.selectShow}
+                searchTerm={this.state.searchTerm}
+                handleMore={ this.handleMore }
+                />
           </Grid.Column >
-          <MoreButton handleMore={this.handleMore}/>
+          
         </Grid>
                 
       </div>
